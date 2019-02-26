@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.6"
+
+# command to install dependencies
+install:
+  - "pip install responder_base_classes"
+  - "pipenv install --dev"
+
+# command to run the dependencies
+script:
+  - "pytest"
+  - "black responder_base_classes tests setup.py --check"
