@@ -28,11 +28,11 @@ class BaseView:
 
         function_name = sys._getframe().f_code.co_name
 
-        print(f"In {function_name} function")
+        # print(f"In {function_name} function")
 
         if not self.allowed_to_execute_method:
             reason_str = f"In {function_name} function: exiting before running execute_{function_name}_request"
-            print(reason_str)
+            # print(reason_str)
             self.update_reason(resp, reason_str)
             return
 
@@ -52,11 +52,11 @@ class BaseView:
 
         function_name = sys._getframe().f_code.co_name
 
-        print(f"In {function_name} function")
+        # print(f"In {function_name} function")
 
         if not self.allowed_to_execute_method:
             reason_str = f"In {function_name} function: exiting before running execute_{function_name}_request"
-            print(reason_str)
+            # print(reason_str)
             self.update_reason(resp, reason_str)
             return
 
@@ -76,11 +76,11 @@ class BaseView:
 
         function_name = sys._getframe().f_code.co_name
 
-        print(f"In {function_name} function")
+        # print(f"In {function_name} function")
 
         if not self.allowed_to_execute_method:
             reason_str = f"In {function_name} function: exiting before running execute_{function_name}_request"
-            print(reason_str)
+            # print(reason_str)
             self.update_reason(resp, reason_str)
             return
 
@@ -100,11 +100,11 @@ class BaseView:
 
         function_name = sys._getframe().f_code.co_name
 
-        print(f"In {function_name} function")
+        # print(f"In {function_name} function")
 
         if not self.allowed_to_execute_method:
             reason_str = f"In {function_name} function: exiting before running execute_{function_name}_request"
-            print(reason_str)
+            # print(reason_str)
             self.update_reason(resp, reason_str)
             return
 
@@ -124,11 +124,11 @@ class BaseView:
 
         function_name = sys._getframe().f_code.co_name
 
-        print(f"In {function_name} function")
+        # print(f"In {function_name} function")
 
         if not self.allowed_to_execute_method:
             reason_str = f"In {function_name} function: exiting before running execute_{function_name}_request"
-            print(reason_str)
+            # print(reason_str)
             self.update_reason(resp, reason_str)
             return
 
@@ -148,11 +148,11 @@ class BaseView:
 
         function_name = sys._getframe().f_code.co_name
 
-        print(f"In {function_name} function")
+        # print(f"In {function_name} function")
 
         if not self.allowed_to_execute_method:
             reason_str = f"In {function_name} function: exiting before running execute_{function_name}_request"
-            print(reason_str)
+            # print(reason_str)
             self.update_reason(resp, reason_str)
             return
 
@@ -196,14 +196,14 @@ class BaseView:
         :param user: User object
         :return:
         """
-        print("In valid_credentials function")
+        # print("In valid_credentials function")
 
         # something along the lines of checking if session includes 'username'
         # then checking if the username has the privileges for the request dict
         #  check against product line name and name of product in user collection
 
         # Honestly not sure how to implement this...will add a test once I decide or get help :)
-        print("Exiting valid_credentials function")
+        # print("Exiting valid_credentials function")
         return False
 
     @classmethod
@@ -214,7 +214,7 @@ class BaseView:
         :return: True if valid, false otherwise
         """
 
-        print("In valid_credential_format function")
+        # print("In valid_credential_format function")
         header_keys = set(req.headers.keys())
 
         if "username" in header_keys and "password" in header_keys:
@@ -226,7 +226,7 @@ class BaseView:
 
             return True
         else:
-            print("Invalid Credential format")
+            # print("Invalid Credential format")
             return False
 
     @classmethod
@@ -237,7 +237,7 @@ class BaseView:
         :return: True if valid, false otherwise
         """
 
-        print(set(req.headers.keys()))
+        # print(set(req.headers.keys()))
         if "content-type" in set(req.headers.keys()):
             if req.headers["content-type"] == "application/json":
                 return True
@@ -309,14 +309,14 @@ class BaseView:
             self.update_reason(
                 resp, "Invalid credentials for this request, user doesn't exist"
             )
-            print("user doesn't exist")
+            # print("user doesn't exist")
         elif req.headers["password"] != user.password:
             self.allowed_to_execute_method = False
             resp.status_code = 401  # Unauthorized
             self.update_reason(
                 resp, "Invalid credentials for this request, password is wrong"
             )
-            print("password is wrong")
+            # print("password is wrong")
         elif not self.valid_credentials_for_route(req, user):
             # now check request against user access dict (overridden by each route)
             self.allowed_to_execute_method = False

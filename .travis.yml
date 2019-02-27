@@ -4,7 +4,7 @@ python:
 
 # command to install dependencies
 install:
-  - "pip install responder_base_classes"
+  -  "pip install -r requirements.txt"
 #  - "pipenv install --dev"
 
 # command to run the dependencies
