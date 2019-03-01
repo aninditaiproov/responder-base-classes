@@ -2,12 +2,10 @@ __author__ = "icleary"
 
 import sys
 
-# from src.models.users.user import User
-
 from .utils import assign_credentials_from_base64
 
 
-class BaseView:
+class BaseView(object):
     """
     Base Class for every View to inherit from
     Assumptions:
@@ -19,8 +17,14 @@ class BaseView:
                 expects getattr(user, password) to match authorization, see valid_credential_format()
     """
 
+    __slots__ = "allowed_to_execute_method"
+    # default to enforce the above to make classes be explicit
+    # __dict__ allows other variables to be assigned without __slots__ benefits
+
     def __init__(self):
-        self.allowed_to_execute_method = True
+        self.allowed_to_execute_method = (
+            True
+        )  # on_method sets to this to false, if appropriate
 
     async def on_get(self, req, resp):
         # this bootstraps on_method checking, since responder calls both on_request and on_{method}
@@ -45,6 +49,7 @@ class BaseView:
                 "status": "failure",
                 "reason": f"{execute_function_name} not implemented for this URL path",
             }
+            resp.status_code = 501  # Not Implemented
 
     async def on_head(self, req, resp):
         # this bootstraps on_method checking, since responder calls both on_request and on_{method}
@@ -65,10 +70,8 @@ class BaseView:
         if hasattr(self, execute_function_name):
             await getattr(self, execute_function_name)(req, resp)
         else:
-            resp.media = {
-                "status": "failure",
-                "reason": f"{execute_function_name} not implemented for this URL path",
-            }
+            # no resp.media as head has no body
+            resp.status_code = 501  # Not Implemented
 
     async def on_post(self, req, resp):
         # this bootstraps on_method checking, since responder calls both on_request and on_{method}
@@ -93,6 +96,7 @@ class BaseView:
                 "status": "failure",
                 "reason": f"{execute_function_name} not implemented for this URL path",
             }
+            resp.status_code = 501  # Not Implemented
 
     async def on_put(self, req, resp):
         # this bootstraps on_method checking, since responder calls both on_request and on_{method}
@@ -117,6 +121,7 @@ class BaseView:
                 "status": "failure",
                 "reason": f"{execute_function_name} not implemented for this URL path",
             }
+            resp.status_code = 501  # Not Implemented
 
     async def on_patch(self, req, resp):
         # this bootstraps on_method checking, since responder calls both on_request and on_{method}
@@ -141,6 +146,7 @@ class BaseView:
                 "status": "failure",
                 "reason": f"{execute_function_name} not implemented for this URL path",
             }
+            resp.status_code = 501  # Not Implemented
 
     async def on_delete(self, req, resp):
         # this bootstraps on_method checking, since responder calls both on_request and on_{method}
@@ -165,6 +171,7 @@ class BaseView:
                 "status": "failure",
                 "reason": f"{execute_function_name} not implemented for this URL path",
             }
+            resp.status_code = 501  # Not Implemented
 
     @classmethod
     def get_user(cls, req):
