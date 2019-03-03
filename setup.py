@@ -14,18 +14,16 @@ with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as f:
 
 about = {}
 
-with open(os.path.join(here, "responder", "__version__.py")) as f:
+with open(os.path.join(here, "responder_base_classes", "__version__.py")) as f:
     exec(f.read(), about)
 
 if sys.argv[-1] == "publish":
     os.system("python setup.py sdist bdist_wheel upload")
     sys.exit()
 
-required = [
-    "responder>=1.3.0",
-    "pytest"
-    # "envparse"
-]
+install_requires = ["responder>=1.3.0"]
+
+tests_require = ["pytest", "black"]
 
 
 # https://pypi.python.org/pypi/stdeb/0.8.5#quickstart-2-just-tell-me-the-fastest-way-to-make-a-deb
@@ -100,6 +98,7 @@ setup(
     description="Base Classes for the Responder Web Framework.",
     long_description=long_description,
     long_description_content_type="text/markdown",
+    url="https://github.com/iancleary/responder-base-classes",
     author="Ian Cleary",
     author_email="iancleary@pm.me",
     packages=find_packages(exclude=["tests"]),
@@ -120,7 +119,8 @@ setup(
     },
     python_requires=">=3.6",
     setup_requires=[],
-    install_requires=required,
+    install_requires=install_requires,
+    tests_require=tests_require,
     extras_require={},
     include_package_data=True,
     license="Apache 2.0",

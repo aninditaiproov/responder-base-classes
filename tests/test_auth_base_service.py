@@ -1,3 +1,5 @@
+__author__ = "icleary"
+
 # stdlib imports
 import base64
 
@@ -5,21 +7,11 @@ import base64
 import responder
 
 
-def test_incorrect_content_type(api):
-    # test case for incorrect media type...considering adding yaml support, thoughts/desires?
-
-    headers = {"content-type": "application/yaml"}
-
-    r = api.requests.post("/", headers=headers)
-
-    assert r.status_code == responder.status_codes.HTTP_415  # unsupported media type
-
-
-def test_correct_media_incorrect_credential_format(api):
+def test_json_content_type_incorrect_credential_format(api):
     # headers with no 'username' or 'password'
     headers = {"content-type": "application/json"}
 
-    r = api.requests.post("/", headers=headers)
+    r = api.requests.post("/AuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_400  # bad request
 
@@ -32,7 +24,7 @@ def test_custom_auth_incorrect_credential_format_1(api):
         "password": "test_password",
     }
 
-    r = api.requests.post("/", headers=headers)
+    r = api.requests.post("/AuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_400  # bad request
 
@@ -45,7 +37,7 @@ def test_custom_auth_incorrect_credential_format_2(api):
         "passwordsfsd": "test_password",
     }
 
-    r = api.requests.post("/", headers=headers)
+    r = api.requests.post("/AuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_400  # bad request
 
@@ -58,7 +50,7 @@ def test_custom_auth_correct_credential_format(api):
         "password": "test_password",
     }
 
-    r = api.requests.post("/", headers=headers)
+    r = api.requests.post("/AuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -72,7 +64,7 @@ def test_basic_auth_incorrect_credential_format(api):
 
     headers = {"Content-Type": "application/json", "authorizationsdf": encoded_header}
 
-    r = api.requests.post("/", headers=headers)
+    r = api.requests.post("/AuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_400  # bad request
 
@@ -85,12 +77,12 @@ def test_basic_auth_correct_credential_format(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.post("/", headers=headers)
+    r = api.requests.post("/AuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # bad request
 
 
-def test_get(api):
+def test_get_with_auth(api):
     # test on_get and execute_on_get
 
     encoded_credentials = base64.b64encode(b"test_user:test_password")
@@ -98,7 +90,7 @@ def test_get(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.get("/", headers=headers)
+    r = api.requests.get("/AuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -109,7 +101,7 @@ def test_get(api):
     }
 
 
-def test_head(api):
+def test_head_with_auth(api):
     # test on_head and execute_on_head
 
     encoded_credentials = base64.b64encode(b"test_user:test_password")
@@ -117,12 +109,12 @@ def test_head(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.head("/", headers=headers)
+    r = api.requests.head("/AuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
 
-def test_post(api):
+def test_post_with_auth(api):
     # test on_post and execute_on_post
 
     encoded_credentials = base64.b64encode(b"test_user:test_password")
@@ -130,7 +122,7 @@ def test_post(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.post("/", headers=headers)
+    r = api.requests.post("/AuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -141,7 +133,7 @@ def test_post(api):
     }
 
 
-def test_put(api):
+def test_put_with_auth(api):
     # test on_put and execute_on_put
 
     encoded_credentials = base64.b64encode(b"test_user:test_password")
@@ -149,7 +141,7 @@ def test_put(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.put("/", headers=headers)
+    r = api.requests.put("/AuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -160,7 +152,7 @@ def test_put(api):
     }
 
 
-def test_patch(api):
+def test_patch_with_auth(api):
     # test on_patch and execute_on_patch
 
     encoded_credentials = base64.b64encode(b"test_user:test_password")
@@ -168,7 +160,7 @@ def test_patch(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.patch("/", headers=headers)
+    r = api.requests.patch("/AuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -179,7 +171,7 @@ def test_patch(api):
     }
 
 
-def test_delete(api):
+def test_delete_with_auth(api):
     # test on_delete and execute_on_delete
 
     encoded_credentials = base64.b64encode(b"test_user:test_password")
@@ -187,7 +179,7 @@ def test_delete(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.delete("/", headers=headers)
+    r = api.requests.delete("/AuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -198,7 +190,7 @@ def test_delete(api):
     }
 
 
-def test_undefined_get(api):
+def test_undefined_get_with_auth(api):
     # test class that hasn't defined execute_on_get
 
     encoded_credentials = base64.b64encode(b"test_user:test_password")
@@ -206,7 +198,7 @@ def test_undefined_get(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.get("/OnMethodLess", headers=headers)
+    r = api.requests.get("/OnMethodLessAuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
@@ -216,7 +208,7 @@ def test_undefined_get(api):
     }
 
 
-def test_undefined_head(api):
+def test_undefined_head_with_auth(api):
     # test class that hasn't defined execute_on_head
 
     encoded_credentials = base64.b64encode(b"test_user:test_password")
@@ -224,12 +216,12 @@ def test_undefined_head(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.head("/OnMethodLess", headers=headers)
+    r = api.requests.head("/OnMethodLessAuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
 
-def test_undefined_post(api):
+def test_undefined_post_with_auth(api):
     # test class that hasn't defined execute_on_post
 
     encoded_credentials = base64.b64encode(b"test_user:test_password")
@@ -237,7 +229,7 @@ def test_undefined_post(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.post("/OnMethodLess", headers=headers)
+    r = api.requests.post("/OnMethodLessAuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
@@ -247,7 +239,7 @@ def test_undefined_post(api):
     }
 
 
-def test_undefined_put(api):
+def test_undefined_put_with_auth(api):
     # test class that hasn't defined execute_on_put
 
     encoded_credentials = base64.b64encode(b"test_user:test_password")
@@ -255,7 +247,7 @@ def test_undefined_put(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.put("/OnMethodLess", headers=headers)
+    r = api.requests.put("/OnMethodLessAuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
@@ -265,7 +257,7 @@ def test_undefined_put(api):
     }
 
 
-def test_undefined_patch(api):
+def test_undefined_patch_with_auth(api):
     # test class that hasn't defined execute_on_patch
 
     encoded_credentials = base64.b64encode(b"test_user:test_password")
@@ -273,7 +265,7 @@ def test_undefined_patch(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.patch("/OnMethodLess", headers=headers)
+    r = api.requests.patch("/OnMethodLessAuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
@@ -283,7 +275,7 @@ def test_undefined_patch(api):
     }
 
 
-def test_undefined_delete(api):
+def test_undefined_delete_with_auth(api):
     # test class that hasn't defined execute_on_delete
 
     encoded_credentials = base64.b64encode(b"test_user:test_password")
@@ -291,7 +283,7 @@ def test_undefined_delete(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.delete("/OnMethodLess", headers=headers)
+    r = api.requests.delete("/OnMethodLessAuthBaseView", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
