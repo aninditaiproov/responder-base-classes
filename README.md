@@ -114,7 +114,7 @@ print(r.json())
 
 r = api.requests.post("/AuthBaseView", headers=headers)
 
-print(r.json()
+print(r.json())
 {'status': 'success', 'reason': 'executed on_post completely', 'object': 42}
 
 # credentials that do not match placeholder in AuthObjectView.get_user
@@ -124,7 +124,7 @@ encoded_header = "Basic {}".format(encoded_credentials.decode("utf-8"))
 headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
 r = api.requests.get("/AuthBaseView", headers=headers)
-print(r.json()
+print(r.json())
 {'status': 'failure', 'reason': 'In on_get function: exiting before running execute_on_get_request; Invalid credentials for this request, password is wrong'}
 
 # please note that this example's get_user defines a user,
