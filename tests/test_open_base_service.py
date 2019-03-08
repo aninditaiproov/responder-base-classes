@@ -118,6 +118,23 @@ def test_delete(api):
     }
 
 
+def test_request_by_headers_since_undefined_get(api):
+    # test on_request and execute_on_request, but with headers, since on_get sets resp.media rather than updating it
+
+    headers = {"Content-Type": "application/json"}
+
+    r = api.requests.get("/RequestOpenBaseView", headers=headers)
+
+    assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
+
+    assert r.json() == {
+        "status": "failure",
+        "reason": "execute_on_get not implemented for this URL path",
+    }
+
+    assert r.headers["X-Pizza"] == "42"
+
+
 def test_undefined_get(api):
     # test class that hasn't defined execute_on_get
 

@@ -12,13 +12,14 @@
 The primary concept is to provide base classes for REST APIs with JSON and [Responder's class based views](https://python-responder.org/en/latest/tour.html#class-based-views)
 
 - Extend Responder with extensions similar to [Flask's extensions]( http://flask.pocoo.org/extensions)
-- Responder executes the on_request method followed by on_{method}, where method is an HTTP verb.
-    - extending that syntax to execute_on_request and execute_on_{method}
-- Two Base Classes are provided: OpenBaseView and AuthBaseView
-- OpenBaseView requires no authorization but checks content-type and implemented routes
-- AuthBaseView extends OpenBaseView with Basic Auth and Custom Auth, and has placeholder functions for your implementation of:
-    - a get_user function for how you check general authorization for you backend
-    - a valid_credentials_for_route function for specific authorization per route
+- Responder executes the `on_request` method followed by `on_{method}`, where method is an HTTP verb.
+    - extending that syntax to `execute_on_request` and `execute_on_{method}`
+    - the expectation is that you implement or overlead `execute_on_request` and `execute_on_{method}`
+- Two Base Classes are provided: `OpenBaseView` and `AuthBaseView`
+- `OpenBaseView` requires no authorization but checks content-type and implemented routes
+- `AuthBaseView` extends `OpenBaseView` with Basic Auth and Custom Auth, and has placeholder functions for your implementation of:
+    - a `get_user` function for how you check general authorization for you backend
+    - a `valid_credentials_for_route` function for specific authorization per route
    
 # Example Usage
 ~~~~

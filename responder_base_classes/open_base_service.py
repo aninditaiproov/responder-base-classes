@@ -250,7 +250,7 @@ class OpenBaseView(object):
         # assumes failing checks, will override in on_{method}
         resp.media = {"status": "failure", "reason": None}
 
-    def on_request(self, req, resp):
+    async def on_request(self, req, resp):
         """
         This is run before every request
         :param req: Mutable request object
@@ -263,3 +263,8 @@ class OpenBaseView(object):
         # check headers for application/json
         if not self.valid_content_type(req, resp):
             return
+
+        execute_function_name = "execute_on_request"
+
+        if hasattr(self, execute_function_name):
+            await getattr(self, execute_function_name)(req, resp)

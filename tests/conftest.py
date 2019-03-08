@@ -64,6 +64,15 @@ def api():
             }
             resp.status_code = 200  # OK
 
+    @api.route("/RequestOpenBaseView")
+    class RequestObjectView(OpenBaseView):
+        """An endpoint for Objects
+        """
+
+        @staticmethod
+        async def execute_on_request(req, resp):
+            resp.headers["X-Pizza"] = "42"
+
     @api.route("/AuthBaseView")
     class AuthObjectView(AuthBaseView):
         """An endpoint for Objects
