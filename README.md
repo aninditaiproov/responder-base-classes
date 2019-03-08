@@ -33,6 +33,7 @@ api = responder.API()
 @api.route("/OpenBaseView")
 class ObjectView(OpenBaseView):
     """An endpoint for Objects"""
+    
     @staticmethod
     async def execute_on_get(req, resp):
         resp.media = {
@@ -41,9 +42,11 @@ class ObjectView(OpenBaseView):
             "object": 42,
         }
         resp.status_code = 200  # OK
+    
     @staticmethod
     async def execute_on_head(req, resp):
         resp.status_code = 200  # OK
+    
     @staticmethod
     async def execute_on_post(req, resp):
         resp.media = {
@@ -52,11 +55,16 @@ class ObjectView(OpenBaseView):
             "object": 42,
         }
         resp.status_code = 200  # OK
+    
+    @staticmethod
+        async def execute_on_request(req, resp):
+            resp.headers["X-Pizza"] = "42"
 
 @api.route("/AuthBaseView")
 class AuthObjectView(AuthBaseView):
     """An endpoint for Objects
     """
+    
     @classmethod
     def valid_credentials_for_route(cls, req, user):
         """
@@ -72,6 +80,7 @@ class AuthObjectView(AuthBaseView):
             # then checking if the username has the privileges for the request dict
             return True  # this defaults to allowed if user exists
         return False
+    
     def get_user(cls, req):
         """
         Get User Class Object, facilitates checking credentials
@@ -85,6 +94,7 @@ class AuthObjectView(AuthBaseView):
                 self.password = password
         user = User(username="test_user", password="test_password")
         return user
+    
     @staticmethod
     async def execute_on_post(req, resp):
         resp.media = {
@@ -99,8 +109,13 @@ r = api.requests.get("/OpenBaseView", headers=headers)
 print(r.json())
 {'status': 'success', 'reason': 'executed on_get completely', 'object': 42}
 
+print(r.headers[X-Pizza'])
+42
+
 # Demo of AuthBaseView
-import base64
+import base64@staticmethod
+        async def execute_on_request(req, resp):
+            resp.headers["X-Pizza"] = "42"
 
 # credentials that match placeholder in AuthObjectView.get_user
 encoded_credentials = base64.b64encode(b"test_user:test_password")
