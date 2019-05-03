@@ -163,63 +163,13 @@ Install the latest release:
 Only **Python 3.6+** is supported ([as required by the Responder package](https://github.com/kennethreitz/responder#installing-responder))
 
 
-# Thoughts
-- move to pipenv?
-- helper function for a route's authorization per HTTP verb?
+# TODO
+See [TODO](TODO.md) about possible next features/changes!
 
 ----------
 
-# Contributing Guide (Welcome!)
+# Contributing Guide
 
-### First Steps to fix an issue or bug
-- Read the documentation (working on adding more)
-- create the minimally reproducible issue
-- try to edit the relevant code and see if it fixes it
-- submit the fix to the provlem as a pull request 
-- include an explanation of what you did and why
-
-### First steps to contribute new features
-- Create an issue to discuss the feature's scope and its fit for this package
-- try to edit the relevant code and implement your new feature in a backwards compatible manner
-- create new tests as you go
-- update the documentation as you go
-- run black to format you code as you go
-
-### Requirements to merge code
-- you must include test coverage
-- you must update the documentation
-- you must run black to format your code (run the snippet below from the base directory)
-
-~~~~
-black responder_base_classes/ tests/ setup.py
-~~~~
-
----
-
-### Recommended background reading on etiquette for contributions
-- Mike McQuaid's [how-to-not-fail-at-using-open-source-software-in-your-organisation](https://mikemcquaid.com/2018/09/04/how-to-not-fail-at-using-open-source-software-in-your-organisation/)
-    - No affiliation, just a fan of the article (the quote block below is from the article)
-    - The Contributing Guide is based on it
-
-> If you follow these steps your experience using and modifying OSS will be much more pleasant. What if you don’t feel confident making changes?
-> *  help others help you by helping yourself
-> You need to be willing to put in the time and effort to make it easier for others to help you. Starting with the easiest:
-> 
-> * read all the documentation before asking for help
-> * create minimally reproducible issues
-> * look at the code you think might be relevant
-> * try to edit the relevant code and see if it fixes the problem
-> * submit the fix to the problem as a pull request
-> 
-> Similarly on your issues, pull requests, tweets and everything related to open source:
->
-> * have reasonable expectations (most maintainers are volunteering in their free time)
-> * prioritise maintainers’ time (there’s more of you than there is of them so your time is less valuable)
-> * defer to maintainers (it’s up to them if changes get made or merged; argue respectfully)
-> * help others where you can (if you want help you need to give help)
->
-> If you want to read more about how to do all aspects of OSS well check out the Open Source Guides. These are the best single resource on the internet on how to contribute to, start and maintain an open source project.
->
-> Finally, just be a nice, kind human. It’s surprising how appreciated (and how rare) kind words are in OSS. Use them generously and you’ll reap the rewards.
+See the [Contributing Guide](CONTRIBUTING.md) and welcome!
 
 Thank you and I hope you find my/our work useful!  Have a nice day :)
