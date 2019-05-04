@@ -3,6 +3,19 @@ __author__ = "icleary"
 import base64
 
 
+def update_reason(resp, reason):
+    """
+    helper function to make on_request more readable
+    :param resp: Mutable response object
+    :param reason: string to add to resp.media
+    :return:
+    """
+    if resp.media["reason"] is None:
+        resp.media.update({"reason": reason})
+    else:
+        resp.media.update({"reason": reason + "; " + resp.media["reason"]})
+
+
 def assign_credentials_from_base64(req) -> object:
     # insert functions to convert and assign to username and password
 

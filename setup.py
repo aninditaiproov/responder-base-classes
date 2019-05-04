@@ -21,7 +21,7 @@ if sys.argv[-1] == "publish":
     os.system("python setup.py sdist bdist_wheel upload")
     sys.exit()
 
-install_requires = ["responder>=1.3.0"]
+install_requires = ["responder>=1.3.0", "wrapt>=1.11.1"]
 
 tests_require = ["pytest", "black"]
 

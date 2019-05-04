@@ -90,7 +90,6 @@ def api():
             print("In valid_credentials function: Class AuthObjectView")
             # something along the lines of checking if session includes 'username'
             # then checking if the username has the privileges for the request dict
-            #  check against product line name and name of product in user collection
 
             print(user)
 

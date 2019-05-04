@@ -2,7 +2,9 @@ __author__ = "icleary"
 
 import sys
 
-from .utils import assign_credentials_from_base64
+from .utils import update_reason
+from .decorators import initialize_response_media_valid_content_type
+from .decorators import execute_on_method_if_allowed_to_execute_method
 
 
 class OpenBaseView(object):
@@ -27,152 +29,29 @@ class OpenBaseView(object):
             True
         )  # on_method sets to this to false, if appropriate
 
+    @execute_on_method_if_allowed_to_execute_method
     async def on_get(self, req, resp):
-        # this bootstraps on_method checking, since responder calls both on_request and on_{method}
-        # expects execute_on_{method} to be overloaded, if you want to use that http method
+        pass
 
-        function_name = sys._getframe().f_code.co_name
-
-        # print(f"In {function_name} function")
-
-        if not self.allowed_to_execute_method:
-            reason_str = f"In {function_name} function: exiting before running execute_{function_name}_request"
-            # print(reason_str)
-            self.update_reason(resp, reason_str)
-            return
-
-        execute_function_name = f"execute_{function_name}"
-
-        if hasattr(self, execute_function_name):
-            await getattr(self, execute_function_name)(req, resp)
-        else:
-            resp.media = {
-                "status": "failure",
-                "reason": f"{execute_function_name} not implemented for this URL path",
-            }
-            resp.status_code = 501  # Not Implemented
-
+    @execute_on_method_if_allowed_to_execute_method
     async def on_head(self, req, resp):
-        # this bootstraps on_method checking, since responder calls both on_request and on_{method}
-        # expects execute_on_{method} to be overloaded, if you want to use that http method
+        pass
 
-        function_name = sys._getframe().f_code.co_name
-
-        # print(f"In {function_name} function")
-
-        if not self.allowed_to_execute_method:
-            reason_str = f"In {function_name} function: exiting before running execute_{function_name}_request"
-            # print(reason_str)
-            self.update_reason(resp, reason_str)
-            return
-
-        execute_function_name = f"execute_{function_name}"
-
-        if hasattr(self, execute_function_name):
-            await getattr(self, execute_function_name)(req, resp)
-        else:
-            # no resp.media as head has no body
-            resp.status_code = 501  # Not Implemented
-
+    @execute_on_method_if_allowed_to_execute_method
     async def on_post(self, req, resp):
-        # this bootstraps on_method checking, since responder calls both on_request and on_{method}
-        # expects execute_on_{method} to be overloaded, if you want to use that http method
+        pass
 
-        function_name = sys._getframe().f_code.co_name
-
-        # print(f"In {function_name} function")
-
-        if not self.allowed_to_execute_method:
-            reason_str = f"In {function_name} function: exiting before running execute_{function_name}_request"
-            # print(reason_str)
-            self.update_reason(resp, reason_str)
-            return
-
-        execute_function_name = f"execute_{function_name}"
-
-        if hasattr(self, execute_function_name):
-            await getattr(self, execute_function_name)(req, resp)
-        else:
-            resp.media = {
-                "status": "failure",
-                "reason": f"{execute_function_name} not implemented for this URL path",
-            }
-            resp.status_code = 501  # Not Implemented
-
+    @execute_on_method_if_allowed_to_execute_method
     async def on_put(self, req, resp):
-        # this bootstraps on_method checking, since responder calls both on_request and on_{method}
-        # expects execute_on_{method} to be overloaded, if you want to use that http method
+        pass
 
-        function_name = sys._getframe().f_code.co_name
-
-        # print(f"In {function_name} function")
-
-        if not self.allowed_to_execute_method:
-            reason_str = f"In {function_name} function: exiting before running execute_{function_name}_request"
-            # print(reason_str)
-            self.update_reason(resp, reason_str)
-            return
-
-        execute_function_name = f"execute_{function_name}"
-
-        if hasattr(self, execute_function_name):
-            await getattr(self, execute_function_name)(req, resp)
-        else:
-            resp.media = {
-                "status": "failure",
-                "reason": f"{execute_function_name} not implemented for this URL path",
-            }
-            resp.status_code = 501  # Not Implemented
-
+    @execute_on_method_if_allowed_to_execute_method
     async def on_patch(self, req, resp):
-        # this bootstraps on_method checking, since responder calls both on_request and on_{method}
-        # expects execute_on_{method} to be overloaded, if you want to use that http method
+        pass
 
-        function_name = sys._getframe().f_code.co_name
-
-        # print(f"In {function_name} function")
-
-        if not self.allowed_to_execute_method:
-            reason_str = f"In {function_name} function: exiting before running execute_{function_name}_request"
-            # print(reason_str)
-            self.update_reason(resp, reason_str)
-            return
-
-        execute_function_name = f"execute_{function_name}"
-
-        if hasattr(self, execute_function_name):
-            await getattr(self, execute_function_name)(req, resp)
-        else:
-            resp.media = {
-                "status": "failure",
-                "reason": f"{execute_function_name} not implemented for this URL path",
-            }
-            resp.status_code = 501  # Not Implemented
-
+    @execute_on_method_if_allowed_to_execute_method
     async def on_delete(self, req, resp):
-        # this bootstraps on_method checking, since responder calls both on_request and on_{method}
-        # expects execute_on_{method} to be overloaded, if you want to use that http method
-
-        function_name = sys._getframe().f_code.co_name
-
-        # print(f"In {function_name} function")
-
-        if not self.allowed_to_execute_method:
-            reason_str = f"In {function_name} function: exiting before running execute_{function_name}_request"
-            # print(reason_str)
-            self.update_reason(resp, reason_str)
-            return
-
-        execute_function_name = f"execute_{function_name}"
-
-        if hasattr(self, execute_function_name):
-            await getattr(self, execute_function_name)(req, resp)
-        else:
-            resp.media = {
-                "status": "failure",
-                "reason": f"{execute_function_name} not implemented for this URL path",
-            }
-            resp.status_code = 501  # Not Implemented
+        pass
 
     @classmethod
     def get_user(cls, req):
@@ -192,12 +71,12 @@ class OpenBaseView(object):
         #     return user
         #
         # print("Exiting get_user function with no user")
-        return None
+        return NotImplementedError
 
     @classmethod
     def valid_credentials_for_route(cls, req, user):
         """
-        Validate credentials against req's product_line_name and name_of_product
+        Validate credentials against route for application
             Safe assumption that user exists and password matches, per on_request method
         This should be overridden for each method
         :param req: Mutable request object
@@ -214,42 +93,7 @@ class OpenBaseView(object):
         # print("Exiting valid_credentials function")
         return False
 
-    def valid_content_type(self, req, resp):
-        """
-        Check if headers specify application json
-        :param req: Mutable request object
-        :return: True if valid, false otherwise
-        """
-
-        # print(set(req.headers.keys()))
-        if "content-type" in set(req.headers.keys()):
-            for content_type in self.allowed_content_types:
-                if content_type in req.headers["content-type"]:
-                    return True
-
-        self.allowed_to_execute_method = False
-        resp.status_code = 415  # Unsupported media type
-        self.update_reason(resp, f"content-type is not in {self.allowed_content_types}")
-        return False
-
-    @staticmethod
-    def update_reason(resp, reason):
-        """
-        helper function to make on_request more readable
-        :param resp: Mutable response object
-        :param reason: string to add to resp.media
-        :return:
-        """
-        if resp.media["reason"] is None:
-            resp.media.update({"reason": reason})
-        else:
-            resp.media.update({"reason": reason + "; " + resp.media["reason"]})
-
-    @staticmethod
-    def initialize_response_media(resp):
-        # assumes failing checks, will override in on_{method}
-        resp.media = {"status": "failure", "reason": None}
-
+    @initialize_response_media_valid_content_type
     async def on_request(self, req, resp):
         """
         This is run before every request
@@ -258,13 +102,9 @@ class OpenBaseView(object):
         :return:
         """
 
-        self.initialize_response_media(resp)
-
-        # check headers for application/json
-        if not self.valid_content_type(req, resp):
-            return
-
+        # valid content type, execute on_request method
         execute_function_name = "execute_on_request"
-
         if hasattr(self, execute_function_name):
             await getattr(self, execute_function_name)(req, resp)
+
+        return
