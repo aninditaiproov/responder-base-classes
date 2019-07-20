@@ -1,4 +1,4 @@
-# Responder-base-classes: Base Classes for [Responder (kennethreitz)](https://github.com/kennethreitz/responder#installing-responder)
+# Responder-base-classes: Base Classes for [Responder](https://github.com/taoufik07/responder#installing-responder)
 
 [![Build Status](https://img.shields.io/travis/com/iancleary/responder-base-classes/master.svg)](https://img.shields.io/travis/com/iancleary/responder-base-classes)
 [![image](https://img.shields.io/pypi/v/responder-base-classes.svg)](https://pypi.org/project/responder-base-classes/)
