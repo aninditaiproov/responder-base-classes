@@ -1,15 +1,13 @@
 __author__ = "icleary"
 
-from .open_base_service import OpenBaseView
+import responder
 
-from .decorators import (
-    initialize_response_media_valid_content_type,
-    valid_credential_format,
-    valid_credentials,
-)
+from .decorators import valid_content_type, valid_credential_format, valid_credentials
+from .models import AuthServiceInterface
+from .open_base_service import OpenService
 
 
-class AuthBaseView(OpenBaseView):
+class AuthService(OpenService, AuthServiceInterface):
     """
     Auth Base Class for every View to inherit from that requires authentication
     Assumptions:
@@ -21,36 +19,15 @@ class AuthBaseView(OpenBaseView):
                 expects getattr(user, password) to match authorization, see valid_credential_format()
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
-    @classmethod
-    def get_user(cls, req):
-        """
-        Get User Class Object, facilitates checking credentials
-        :param req: Mutable request object
-        :return: user: User object that has password->str used for authentication
-        """
-        raise NotImplementedError
-
-    @classmethod
-    def valid_credentials_for_route(cls, req, user):
-        """
-        Validate credentials against application
-            Safe assumption that user exists and password matches, per on_request method
-        This should be overridden for each method
-        :param req: Mutable request object
-        :param user: User object
-        :return:
-        """
-        # Honestly not sure how to implement this...will add a test once I decide or get help :)
-        # print("Exiting valid_credentials function")
-        raise NotImplementedError
-
-    @initialize_response_media_valid_content_type
+    @valid_content_type
     @valid_credential_format
     @valid_credentials
-    async def on_request(self, req, resp):
+    async def on_request(
+        self, req: responder.models.Request, resp: responder.models.Response
+    ) -> None:
         """
         This is run before every request
         :param req: Mutable request object

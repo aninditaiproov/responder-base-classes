@@ -8,7 +8,7 @@ def test_incorrect_content_type(api):
 
     headers = {"content-type": "application/xml"}
 
-    r = api.requests.post("/OpenBaseView", headers=headers)
+    r = api.requests.post("/OpenService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_415  # unsupported media type
 
@@ -18,7 +18,7 @@ def test_yaml_content_type(api):
 
     headers = {"content-type": "text/yaml", "Accept": "yaml"}
 
-    r = api.requests.post("/OpenBaseView", headers=headers)
+    r = api.requests.post("/OpenService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
     assert yaml.load(r.content) == {
@@ -33,7 +33,7 @@ def test_head(api):
 
     headers = {"Content-Type": "application/json"}
 
-    r = api.requests.head("/OpenBaseView", headers=headers)
+    r = api.requests.head("/OpenService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -43,7 +43,7 @@ def test_get(api):
 
     headers = {"Content-Type": "application/json"}
 
-    r = api.requests.get("/OpenBaseView", headers=headers)
+    r = api.requests.get("/OpenService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -59,7 +59,7 @@ def test_post(api):
 
     headers = {"Content-Type": "application/json"}
 
-    r = api.requests.post("/OpenBaseView", headers=headers)
+    r = api.requests.post("/OpenService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -75,7 +75,7 @@ def test_put(api):
 
     headers = {"Content-Type": "application/json"}
 
-    r = api.requests.put("/OpenBaseView", headers=headers)
+    r = api.requests.put("/OpenService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -91,7 +91,7 @@ def test_patch(api):
 
     headers = {"Content-Type": "application/json"}
 
-    r = api.requests.patch("/OpenBaseView", headers=headers)
+    r = api.requests.patch("/OpenService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -107,7 +107,7 @@ def test_delete(api):
 
     headers = {"Content-Type": "application/json"}
 
-    r = api.requests.delete("/OpenBaseView", headers=headers)
+    r = api.requests.delete("/OpenService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -123,7 +123,7 @@ def test_request_by_headers_since_undefined_get(api):
 
     headers = {"Content-Type": "application/json"}
 
-    r = api.requests.get("/RequestOpenBaseView", headers=headers)
+    r = api.requests.get("/RequestOpenService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
@@ -140,7 +140,7 @@ def test_undefined_get(api):
 
     headers = {"Content-Type": "application/json"}
 
-    r = api.requests.get("/OnMethodLessOpenBaseView", headers=headers)
+    r = api.requests.get("/OnMethodLessOpenService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
@@ -155,7 +155,7 @@ def test_undefined_head(api):
 
     headers = {"Content-Type": "application/json"}
 
-    r = api.requests.head("/OnMethodLessOpenBaseView", headers=headers)
+    r = api.requests.head("/OnMethodLessOpenService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
@@ -165,7 +165,7 @@ def test_undefined_post(api):
 
     headers = {"Content-Type": "application/json"}
 
-    r = api.requests.post("/OnMethodLessOpenBaseView", headers=headers)
+    r = api.requests.post("/OnMethodLessOpenService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
@@ -180,7 +180,7 @@ def test_undefined_put(api):
 
     headers = {"Content-Type": "application/json"}
 
-    r = api.requests.put("/OnMethodLessOpenBaseView", headers=headers)
+    r = api.requests.put("/OnMethodLessOpenService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
@@ -195,7 +195,7 @@ def test_undefined_patch(api):
 
     headers = {"Content-Type": "application/json"}
 
-    r = api.requests.patch("/OnMethodLessOpenBaseView", headers=headers)
+    r = api.requests.patch("/OnMethodLessOpenService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
@@ -210,7 +210,7 @@ def test_undefined_delete(api):
 
     headers = {"Content-Type": "application/json"}
 
-    r = api.requests.delete("/OnMethodLessOpenBaseView", headers=headers)
+    r = api.requests.delete("/OnMethodLessOpenService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 

@@ -11,7 +11,7 @@ def test_json_content_type_incorrect_credential_format(api):
     # headers with no 'username' or 'password'
     headers = {"content-type": "application/json"}
 
-    r = api.requests.post("/AuthBaseView", headers=headers)
+    r = api.requests.post("/AuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_400  # bad request
 
@@ -24,7 +24,7 @@ def test_custom_auth_incorrect_credential_format_1(api):
         "password": "test_password",
     }
 
-    r = api.requests.post("/AuthBaseView", headers=headers)
+    r = api.requests.post("/AuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_400  # bad request
 
@@ -37,7 +37,7 @@ def test_custom_auth_incorrect_credential_format_2(api):
         "passwordsfsd": "test_password",
     }
 
-    r = api.requests.post("/AuthBaseView", headers=headers)
+    r = api.requests.post("/AuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_400  # bad request
 
@@ -50,7 +50,7 @@ def test_custom_auth_correct_credential_format(api):
         "password": "test_password",
     }
 
-    r = api.requests.post("/AuthBaseView", headers=headers)
+    r = api.requests.post("/AuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -64,7 +64,7 @@ def test_basic_auth_incorrect_credential_format(api):
 
     headers = {"Content-Type": "application/json", "authorizationsdf": encoded_header}
 
-    r = api.requests.post("/AuthBaseView", headers=headers)
+    r = api.requests.post("/AuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_400  # bad request
 
@@ -77,7 +77,7 @@ def test_basic_auth_correct_credential_format(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.post("/AuthBaseView", headers=headers)
+    r = api.requests.post("/AuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # bad request
 
@@ -90,7 +90,7 @@ def test_get_with_auth(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.get("/AuthBaseView", headers=headers)
+    r = api.requests.get("/AuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -109,7 +109,7 @@ def test_head_with_auth(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.head("/AuthBaseView", headers=headers)
+    r = api.requests.head("/AuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -122,7 +122,7 @@ def test_post_with_auth(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.post("/AuthBaseView", headers=headers)
+    r = api.requests.post("/AuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -141,7 +141,7 @@ def test_put_with_auth(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.put("/AuthBaseView", headers=headers)
+    r = api.requests.put("/AuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -160,7 +160,7 @@ def test_patch_with_auth(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.patch("/AuthBaseView", headers=headers)
+    r = api.requests.patch("/AuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -179,7 +179,7 @@ def test_delete_with_auth(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.delete("/AuthBaseView", headers=headers)
+    r = api.requests.delete("/AuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_200  # OK
 
@@ -198,7 +198,7 @@ def test_undefined_get_with_auth(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.get("/OnMethodLessAuthBaseView", headers=headers)
+    r = api.requests.get("/OnMethodLessAuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
@@ -216,7 +216,7 @@ def test_undefined_head_with_auth(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.head("/OnMethodLessAuthBaseView", headers=headers)
+    r = api.requests.head("/OnMethodLessAuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
@@ -229,7 +229,7 @@ def test_undefined_post_with_auth(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.post("/OnMethodLessAuthBaseView", headers=headers)
+    r = api.requests.post("/OnMethodLessAuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
@@ -247,7 +247,7 @@ def test_undefined_put_with_auth(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.put("/OnMethodLessAuthBaseView", headers=headers)
+    r = api.requests.put("/OnMethodLessAuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
@@ -265,7 +265,7 @@ def test_undefined_patch_with_auth(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.patch("/OnMethodLessAuthBaseView", headers=headers)
+    r = api.requests.patch("/OnMethodLessAuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 
@@ -283,7 +283,7 @@ def test_undefined_delete_with_auth(api):
 
     headers = {"Content-Type": "application/json", "authorization": encoded_header}
 
-    r = api.requests.delete("/OnMethodLessAuthBaseView", headers=headers)
+    r = api.requests.delete("/OnMethodLessAuthService", headers=headers)
 
     assert r.status_code == responder.status_codes.HTTP_501  # Not Implemented
 

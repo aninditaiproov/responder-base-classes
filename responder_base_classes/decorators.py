@@ -1,15 +1,20 @@
 # stdlib imports
 import inspect
+from typing import Any, Callable
 
 # package imports
+import responder
 import wrapt
 
 # local imports
-from .utils import update_reason, assign_credentials_from_base64
+from .models import AuthServiceInterface, Base
+from .utils import assign_credentials_from_base64, update_reason
 
 
 @wrapt.decorator
-def initialize_response_media_valid_content_type(wrapped, instance, args, kwargs):
+def valid_content_type(
+    wrapped: Callable, instance: Base, args: str, kwargs: dict
+) -> Any:
     """
     1) Initializes response media
     2) Check if headers specify valid content type
@@ -34,7 +39,12 @@ def initialize_response_media_valid_content_type(wrapped, instance, args, kwargs
         else:
             # Decorator was applied to an staticmethod.
 
-            def _execute(req, resp, *_args, **_kwargs):
+            def _execute(
+                req: responder.models.Request,
+                resp: responder.models.Response,
+                *_args: Any,
+                **_kwargs: Any,
+            ) -> Any:
                 """
                 :param req: Mutable request object
                 :param resp: Mutable response object
@@ -62,7 +72,9 @@ def initialize_response_media_valid_content_type(wrapped, instance, args, kwargs
 
 
 @wrapt.decorator
-def execute_on_method_if_allowed_to_execute_method(wrapped, instance, args, kwargs):
+def execute_on_method_if_allowed_to_execute_method(
+    wrapped: Callable, instance: Base, args: str, kwargs: dict
+) -> Any:
     """
     1) this bootstraps on_{method} checking, since responder calls both on_request and on_{method}
     2) expects execute_on_{method} to be overloaded, if you want to use that http method
@@ -85,7 +97,12 @@ def execute_on_method_if_allowed_to_execute_method(wrapped, instance, args, kwar
         else:
             # Decorator was applied to an staticmethod.
 
-            async def _execute(req, resp, *_args, **_kwargs):
+            async def _execute(
+                req: responder.models.Request,
+                resp: responder.models.Response,
+                *_args: Any,
+                **_kwargs: Any,
+            ) -> Any:
                 """
                 :param req: Mutable request object
                 :param resp: Mutable response object
@@ -122,7 +139,9 @@ def execute_on_method_if_allowed_to_execute_method(wrapped, instance, args, kwar
 
 
 @wrapt.decorator
-def valid_credential_format(wrapped, instance, args, kwargs):
+def valid_credential_format(
+    wrapped: Callable, instance: Base, args: str, kwargs: dict
+) -> Any:
     """
     1) this checks that credentials are formatted correctly
     """
@@ -143,7 +162,12 @@ def valid_credential_format(wrapped, instance, args, kwargs):
         else:
             # Decorator was applied to an staticmethod.
 
-            async def _execute(req, resp, *_args, **_kwargs):
+            async def _execute(
+                req: responder.models.Request,
+                resp: responder.models.Response,
+                *_args: Any,
+                **_kwargs: Any,
+            ) -> Any:
                 """
                 :param req: Mutable request object
                 :param resp: Mutable response object
@@ -191,7 +215,9 @@ def valid_credential_format(wrapped, instance, args, kwargs):
 
 
 @wrapt.decorator
-def valid_credentials(wrapped, instance, args, kwargs):
+def valid_credentials(
+    wrapped: Callable, instance: AuthServiceInterface, args: str, kwargs: dict
+) -> Any:
     """
     1) this checks that credentials are valid
     2) expects execute_on_{method} to be overloaded, if you want to use that http method
@@ -214,7 +240,12 @@ def valid_credentials(wrapped, instance, args, kwargs):
         else:
             # Decorator was applied to an staticmethod.
 
-            async def _execute(req, resp, *_args, **_kwargs):
+            async def _execute(
+                req: responder.models.Request,
+                resp: responder.models.Response,
+                *_args: Any,
+                **_kwargs: Any,
+            ) -> Any:
                 """
                 :param req: Mutable request object
                 :param resp: Mutable response object

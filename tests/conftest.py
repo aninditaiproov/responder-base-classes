@@ -1,8 +1,8 @@
 import pytest
 import responder
-
-from responder_base_classes.open_base_service import OpenBaseView
-from responder_base_classes.auth_base_service import AuthBaseView
+from responder_base_classes.auth_base_service import AuthService
+from responder_base_classes.models import User
+from responder_base_classes.open_base_service import OpenService
 
 
 @pytest.fixture
@@ -10,8 +10,8 @@ def api():
 
     api = responder.API(debug=False, allowed_hosts=[";"])
 
-    @api.route("/OpenBaseView")
-    class ObjectView(OpenBaseView):
+    @api.route("/OpenService")
+    class OpenServiceObject(OpenService):
         """An endpoint for Objects
         """
 
@@ -64,8 +64,8 @@ def api():
             }
             resp.status_code = 200  # OK
 
-    @api.route("/RequestOpenBaseView")
-    class RequestObjectView(OpenBaseView):
+    @api.route("/RequestOpenService")
+    class RequestOpenService(OpenService):
         """An endpoint for Objects
         """
 
@@ -73,8 +73,8 @@ def api():
         async def execute_on_request(req, resp):
             resp.headers["X-Pizza"] = "42"
 
-    @api.route("/AuthBaseView")
-    class AuthObjectView(AuthBaseView):
+    @api.route("/AuthService")
+    class AuthObjectView(AuthService):
         """An endpoint for Objects
         """
 
@@ -108,11 +108,6 @@ def api():
             :param req: Mutable request object
             :return:
             """
-
-            class User(object):
-                def __init__(self, username, password):
-                    self.username = username
-                    self.password = password
 
             user = User(username="test_user", password="test_password")
 
@@ -167,13 +162,13 @@ def api():
             }
             resp.status_code = 200  # OK
 
-    @api.route("/OnMethodLessOpenBaseView")
-    class OnMethodLessOpenBaseView(OpenBaseView):
+    @api.route("/OnMethodLessOpenService")
+    class OnMethodLessOpenService(OpenService):
         """An endpoint that hasn't defined any execute_on_{method}s
         """
 
-    @api.route("/OnMethodLessAuthBaseView")
-    class OnMethodLessViewAuthBaseView(AuthBaseView):
+    @api.route("/OnMethodLessAuthService")
+    class OnMethodLessViewAuthService(AuthService):
         """An endpoint that hasn't defined any execute_on_{method}s
         """
 
@@ -208,11 +203,6 @@ def api():
             :param req: Mutable request object
             :return:
             """
-
-            class User(object):
-                def __init__(self, username, password):
-                    self.username = username
-                    self.password = password
 
             user = User(username="test_user", password="test_password")
 

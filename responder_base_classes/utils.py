@@ -2,8 +2,10 @@ __author__ = "icleary"
 
 import base64
 
+import responder
 
-def update_reason(resp, reason):
+
+def update_reason(resp: responder.models.Response, reason: str) -> None:
     """
     helper function to make on_request more readable
     :param resp: Mutable response object
@@ -16,7 +18,9 @@ def update_reason(resp, reason):
         resp.media.update({"reason": reason + "; " + resp.media["reason"]})
 
 
-def assign_credentials_from_base64(req) -> object:
+def assign_credentials_from_base64(
+    req: responder.models.Request
+) -> responder.models.Request:
     # insert functions to convert and assign to username and password
 
     credentials = req.headers["authorization"]
