@@ -20,8 +20,5 @@ graphene = "<=2.1.8"
 responder = "*"
 wrapt = ">=1.11.1"
 
-[requires]
-python_version = "3.6"
-
 [pipenv]
 allow_prereleases = true
